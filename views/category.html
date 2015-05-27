@@ -1,0 +1,30 @@
+% rebase('base.html',
+%  page_title=category.name,
+%  breadcrumbs={ 'category': category }
+% )
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{category.description}}</h3>
+  </div>
+  % if category.children.count():
+  <div class="panel-body">
+    <ul class="nav nav-pills nav-justified" role="tablist">
+    % for c in category.children:
+      <li role="presentation"><a href="/board/category/{{c.id}}">{{c.name}} <span class="badge">{{c.threads.count()}}</span></a></li>
+    % end
+    </ul>
+  </div>
+  % end
+</div>
+
+
+
+<div class="list-group">
+  % for thread in category.threads:
+  <a href="/board/thread/{{thread.id}}" class="list-group-item">
+    <h4 class="list-group-item-heading"><span class="label label-success">New posts!</span> {{thread.title}}</h4>
+    <p class="list-group-item-text">Posts: {{thread.posts.count()}}</p>
+  </a>
+  % end
+</div>

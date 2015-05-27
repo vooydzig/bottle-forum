@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>{{context.app_name}} - {{get('page_title', 'Home')}}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  % include('libs.html')
+
+</head>
+<body>
+  % include('navbar.html', breadcrumbs=get('breadcrumbs', None), session=get('session', None))
+  <div class="container-fluid">
+    <div class="row header text-center">
+      <h1>{{context.app_name}}</h1>
+    </div>
+    % include('common/messages.html', errors=get('errors', []), messages=get('messages', []))
+    <div class="row content">
+      {{!base}}
+    </div>
+
+    <div class="row panel-footer text-center">
+      &copy 2015 <a href="https://github.com/vooydzig/bottle-forum" target="_blank">messages-in-a-bottle.py</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+% rebase('base.html',
+%  page_title='Search'
+% )
+
+
+% if defined('query'):
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Search results for: "{{query}}"</h3>
+  </div>
+</div>
+% end
+
+% if defined('results'):
+  % if results['users'].count():
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Users</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          % for u in results['users']:
+            <a href="/user/{{u.id}}" class="list-group-item">{{u.auth.username}}</a>
+          % end
+        </div>
+      </div>
+    </div>
+  % end
+
+  % if results['categories'].count():
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Categories</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          % for c in results['categories']:
+            <a href="/category/{{c.id}}" class="list-group-item">{{c.name}}</a>
+          % end
+        </div>
+      </div>
+    </div>
+  % end
+
+  % if results['threads'].count():
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Threads</h3>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          % for t in results['threads']:
+            <a href="/thread/{{t.id}}" class="list-group-item">{{t.title}}</a>
+          % end
+        </div>
+      </div>
+    </div>
+  % end
+% end

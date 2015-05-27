@@ -1,0 +1,6 @@
+.idea/*
+*.pyc
+*.log
+*.sqlite
+settings.py
+static/avatars/*

@@ -1,0 +1,21 @@
+% rebase('base.html',
+%   page_title=thread.title,
+%   breadcrumbs={ 'category': thread.category, 'thread': thread }
+% )
+
+<ul class="media-list">
+  % for post in thread.posts:
+  <li class="media post">
+    <div class="media-left text-center">
+      <img class="avatar" src="{{post.author.get_avatar()}}" />
+      <a href="/user/{{post.author.id}}">{{post.author.username}}</a>
+      <p class="small">Posts: {{post.author.posts.count()}}</p>
+    </div>
+
+    <div class="media-body">
+      <p class="small">Published: {{post.created.strftime("%d-%m-%Y %H:%M:%S")}}</p>
+      <p>{{post.body}}</p>
+    </div>
+  </li>
+  % end
+</ul>

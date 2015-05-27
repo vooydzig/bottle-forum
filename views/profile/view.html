@@ -1,0 +1,31 @@
+% rebase('base.html',
+%  page_title=profile.auth.username,
+%  breadcrumbs={'profile': profile}
+% )
+
+<div class="col-md-3">
+  <div class="thumbnail">
+    <img class="avatar" src="{{profile.get_avatar()}}" />
+    <div class="caption">
+      <h3 class="text-center">{{profile.auth.username}}</h3>
+      <p class="small">Joined: {{profile.created.strftime("%d-%m-%Y %H:%M:%S")}}</p>
+      <p class="small">Last login: {{profile.auth.last_login.strftime("%d-%m-%Y %H:%M:%S")}}</p>
+      <p><strong>Role: </strong>{{profile.auth.role.name}}</p>
+      <p><strong>Location: </strong>{{profile.location}}</p>
+      <p><strong>Title: </strong>{{profile.title}}</p>
+      <p>{{profile.description}}</p>
+    </div>
+  </div>
+</div>
+<div class="col-xs-6 col-md-9">
+  <h2>Posts ({{profile.posts.count()}})</h2>
+  % for post in profile.posts:
+  <div class="list-item post">
+    <div class="summary">
+      In thread: <a class="big" href="/thread/{{post.thread.id}}">{{post.thread.title}}</a>
+      <p class="small">Published: {{post.created.strftime("%d-%m-%Y %H:%M:%S")}}</p>
+      <p>{{post.body[:100]}}</p>
+    </div>
+  </div>
+  % end
+</div>

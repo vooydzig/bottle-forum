@@ -1,0 +1,72 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img alt="ForumLogo" src="/static/gfx/logo.jpg">
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        % if breadcrumbs is not None:
+        %   cat = breadcrumbs.get('category')
+        %   if cat is not None:
+        %     cat_list = [cat]
+        %     while cat.parent:
+        %       cat_list.append(cat.parent)
+        %       cat = cat.parent
+        %     end
+        %     for c in reversed(cat_list):
+                <li><a href="/category/{{c.id}}">{{c.name[:20]}}</a></li>
+        %     end
+        %   end
+        %   if breadcrumbs.get('thread'):
+        %     t = breadcrumbs.get('thread')
+              <li><a href="/thread/{{t.id}}">{{t.title[:20]}}</a></li>
+        %   end
+        %   if breadcrumbs.get('profile'):
+              <li><a href="/user/{{breadcrumbs.get('profile').id}}">{{breadcrumbs.get('profile').username}}'s profile</a></li>
+        %   end
+        % end
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          % if defined('session') and session.get('user') is not None:
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{session.get('user').username}}
+              <span class="caret"></span></a>
+          % else:
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Sign-in
+              <span class="caret"></span></a>
+          % end
+          <ul class="dropdown-menu" role="menu">
+            % if defined('session') and session.get('user') is not None:
+              <li><a href="/user/{{session.get('user').id}}">View</a></li>
+              <li><a href="/user/edit/{{session.get('user').id}}">Edit</a></li>
+              <li><a href="/logout">Logout</a></li>
+            % else:
+              <li><a href="/register">Register</a></li>
+              <li><a href="/login">Login</a></li>
+            % end
+          </ul>
+        </li>
+      </ul>
+
+      <form class="navbar-form navbar-right" role="search" method="post" action="/search">
+        <div class="form-group">
+          <input name="query" type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

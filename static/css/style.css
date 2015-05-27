@@ -1,0 +1,13 @@
+body { padding-top: 70px;}
+
+.header {
+    background-image: url('/static/gfx/header.png');
+    background-repeat: no-repeat;
+    min-height: 200px;
+    background-position-x: 55%;
+    margin-bottom: 10px;
+}
+
+.avatar { width: 100px;}
+.content { min-height: 700px; }
+.category, .thread, .post { border-bottom: 1px solid black; margin-bottom: 20px;}
