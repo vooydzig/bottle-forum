@@ -35,7 +35,6 @@ Requirements
 * **peewee** - ORM, decided to use something lighter than SQLAlchemy
 * **beaker** - for session management
 * **PIL** - some minor avatar editing, resizing etc.
-* **passlib** - used in auth framework
 
 **other stuff:**
 

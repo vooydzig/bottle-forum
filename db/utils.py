@@ -1,6 +1,6 @@
 import json
 
-from users.models import Profile
+from users.models import Profile, Role
 from messageboard.models import Category, Thread, Post
 
 from db import database
@@ -12,8 +12,9 @@ def create_tables():
   Category.drop_table(fail_silently=True)
   Thread.drop_table(fail_silently=True)
   Post.drop_table(fail_silently=True)
+  Role.drop_table(fail_silently=True)
   Profile.drop_table(fail_silently=True)
-  database.create_tables([Category, Thread, Post, Profile])
+  database.create_tables([Category, Thread, Post, Profile, Role])
   database.close()
 
   if settings.DEBUG:
@@ -26,11 +27,11 @@ def create_temp_categories():
     for c in cats:
       Category.create(name=c['name'], description=c['description'], parent=c['parent'])
 
-#
-# def create_temp_roles():
-#   Role.create(name='admin', level=100)
-#   Role.create(name='moderator', level=50)
-#   Role.create(name='user', level=1)
+
+def create_temp_roles():
+  Role.create(name='admin', level=100)
+  Role.create(name='moderator', level=50)
+  Role.create(name='user', level=1)
 
 
 def create_temp_users():
@@ -49,8 +50,8 @@ def create_temp_users():
 def _create_user(username, rolename, data=None):
   if data is None:
     data = {}
-  # role = Role.select().where(Role.name==rolename).get()
-  Profile.create(username=username, email=username+'@srv.pl',
+  role = Role.select().where(Role.name==rolename).get()
+  Profile.create(username=username, email=username+'@srv.pl', role=role,
                  description=data.get('description', 'User ' + username + ' description'),
                  title=data.get('title', 'User ' + username + ' title'),
                  location=data.get('location', 'User ' + username + ' location'))
@@ -76,7 +77,7 @@ def create_temp_posts():
 
 def setup_temp_data():
   with database.transaction():
-    # create_temp_roles()
+    create_temp_roles()
     create_temp_users()
     create_temp_categories()
     create_temp_threads()

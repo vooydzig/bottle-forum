@@ -4,3 +4,4 @@
 *.sqlite
 settings.py
 static/avatars/*
+TODO.lst

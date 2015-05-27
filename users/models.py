@@ -3,9 +3,16 @@ import peewee
 
 from common import models
 
-__all__ = ['Profile']
+__all__ = ['Profile', 'Role']
+
+class Role(models.BaseModel):
+  name = peewee.CharField()
+  level = peewee.IntegerField()
+
 
 class Profile(models.BaseModel):
+  role = peewee.ForeignKeyField(Role)
+
   username = peewee.CharField(null=False)
   email = peewee.CharField(null=False)
 
