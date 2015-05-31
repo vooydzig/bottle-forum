@@ -8,10 +8,16 @@ from common.decorators import *
 
 from users.routes import app as users_app
 from messageboard.routes import app as forum_app
+from rest import RestApp
 
 root = bottle.Bottle()
 root.mount('/user', users_app)
 root.mount('/board', forum_app)
+
+from users.models import *
+rest_app = RestApp('/users', Profile)
+root.mount('/api', rest_app)
+
 
 session = SessionMiddleware(root, settings.SESSION_OPTS)
 
