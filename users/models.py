@@ -14,7 +14,7 @@ class Profile(models.BaseModel):
   role = peewee.ForeignKeyField(Role)
 
   username = peewee.CharField(null=False)
-  email = peewee.CharField(null=False)
+  email = peewee.CharField(null=False, unique=True)
 
   avatar = peewee.CharField(null=True)
   description = peewee.CharField(null=True)
